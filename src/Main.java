@@ -17,8 +17,14 @@ public class Main {
             System.out.println("3. Total Events");
             System.out.println("4. Add Student");
             System.out.println("5. View Students");
-            System.out.println("6. Exit");
-            System.out.print("Enter choice: ");
+            System.out.println("6. Remove Student");
+            System.out.println("7. Find Student");
+            System.out.println("8. Remove Event");
+           System.out.println("9. Find Event");
+            System.out.println("10. Register Student");
+System.out.println("11. View Registrations");
+System.out.println("12. Exit");
+             System.out.print("Enter your choice: ");
 
             choice = sc.nextInt();
             sc.nextLine();
@@ -46,18 +52,33 @@ public class Main {
                     int capacity = sc.nextInt();
                     sc.nextLine();
 
-                    Event event = new Event(id, name, date, venue, category, capacity);
+                    Event event = new Event(
+                            id,
+                            name,
+                            date,
+                            venue,
+                            category,
+                            capacity
+                    );
 
                     service.addEvent(event);
 
                     break;
 
                 case 2:
+
                     service.showEvents();
+
                     break;
+
                 case 3:
-                    System.out.println("Total Events: " + service.getTotalEvents());
+
+                    System.out.println(
+                            "Total Events: " + service.getTotalEvents()
+                    );
+
                     break;
+
                 case 4:
 
                     System.out.print("Student ID: ");
@@ -76,24 +97,111 @@ public class Main {
                             studentId,
                             studentName,
                             studentEmail,
-                            department);
+                            department
+                    );
 
                     service.addStudent(student);
 
                     break;
+
                 case 5:
+
                     service.showStudents();
+
                     break;
+
                 case 6:
+
+                    System.out.print("Enter Student ID to remove: ");
+                    String removeStudentId = sc.nextLine();
+
+                    service.removeStudent(removeStudentId);
+
+                    break;
+
+                case 7:
+
+                    System.out.print("Enter Student ID to find: ");
+                    String findStudentId = sc.nextLine();
+
+                    Student foundStudent = service.findStudent(findStudentId);
+
+                    if (foundStudent != null) {
+                        System.out.println("\nStudent Found!");
+                        System.out.println("Student ID : " + foundStudent.getStudentId());
+                        System.out.println("Name       : " + foundStudent.getStudentName());
+                        System.out.println("Email      : " + foundStudent.getStudentEmail());
+                        System.out.println("Department : " + foundStudent.getDepartment());
+                    } else {
+                        System.out.println("Student not found!");
+                    }
+
+                    break;
+
+                case 8:
+
+                    System.out.print("Enter Event ID to remove: ");
+                    String removeEventId = sc.nextLine();
+
+                    service.removeEvent(removeEventId);
+
+                    break;
+
+                case 9:
+
+                    System.out.print("Enter Event ID to find: ");
+                    String findEventId = sc.nextLine();
+
+                    Event foundEvent = service.findEvent(findEventId);
+
+                    if (foundEvent != null) {
+                        System.out.println("\nEvent Found!");
+                        System.out.println(foundEvent);
+                    } else {
+                        System.out.println("Event not found!");
+                    }
+
+                    break;
+                case 10:
+
+    System.out.print("Registration ID: ");
+    String registrationId = sc.nextLine();
+
+    System.out.print("Student ID: ");
+    String registerStudentId = sc.nextLine();
+
+    System.out.print("Event ID: ");
+    String registerEventId = sc.nextLine();
+
+    System.out.print("Registration Date: ");
+    String registrationDate = sc.nextLine();
+
+    service.registerStudent(
+            registrationId,
+            registerStudentId,
+            registerEventId,
+            registrationDate
+    );
+
+    break;   
+         case 11:
+
+    service.showRegistrations();
+
+    break;
+                case 12:
+
                     System.out.println("Thank You!");
+
                     break;
 
                 default:
+
                     System.out.println("Invalid Choice!");
 
             }
 
-        } while (choice != 6);
+        } while (choice != 12);
 
         sc.close();
     }
